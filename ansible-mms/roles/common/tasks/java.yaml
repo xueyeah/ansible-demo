@@ -1,0 +1,59 @@
+---
+- name: remove /opt/java
+  file:
+    path: /opt/java
+    state: absent
+
+- name: remove /opt/jdk1.5.0_85
+  file:
+    path: /opt/jdk1.5.0_85
+    state: absent
+
+- name: copy jdk.tar.gz file
+  copy:
+    src: "{{ playbook_dir }}/file/jdk.tar.gz"
+    dest: /opt
+    owner: root
+    group: root
+    mode: 0755
+    backup: no
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: tar -zxvf jdk.tar.gz
+  shell: 'tar -zxvf /opt/jdk.tar.gz -C /opt/'
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: generate java soft link
+  file:
+    src: /opt/jdk1.5.0_85/
+    dest: /opt/java
+    owner: root
+    group: root
+    state: link
+
+- name: remove jdk.tar.gz
+  file:
+    path: /opt/jdk.tar.gz
+    state: absent
+
+- name: copy nxuser's .bash_profile file
+  copy:
+    src: .bash_profile
+    dest: /home/nxuser
+    owner: nxuser
+    group: nxgroup
+    mode: 0644
+    backup: no
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: init nxuser environment
+  shell: 'source /home/nxuser/.bash_profile;java -version'
+  become: true
+  become_user: root
+  become_method: sudo

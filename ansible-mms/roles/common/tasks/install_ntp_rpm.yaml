@@ -1,0 +1,22 @@
+---
+- name: copy ntp rpm
+  copy:
+    src: "{{ playbook_dir }}/file/ntpdate-4.2.6p5-15.el6.centos.x86_64.rpm"
+    dest: /opt
+    owner: root
+    group: root
+    mode: 0755
+    backup: no
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: install ntp rpm
+  yum:
+    name: /opt/ntpdate-4.2.6p5-15.el6.centos.x86_64.rpm
+    state: present
+
+- name: remove jdk.tar.gz
+  file:
+    path: /opt/ntpdate-4.2.6p5-15.el6.centos.x86_64.rpm
+    state: absent

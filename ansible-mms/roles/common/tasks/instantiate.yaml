@@ -1,0 +1,35 @@
+---
+# - name: ssh connection
+#   wait_for: host={{ ansible_ssh_host }} port=22 state=started
+- name: update etc hosts
+  include: hosts.yaml
+- name: update timezone
+  include: timezone.yaml
+- name: create nxuser and nxgroup
+  include: user.yaml
+- name: update ssh key
+  include: keypair.yaml
+- name: stop firewall and postfix service
+  include: service.yaml
+- name: update ssh and sshd config
+  include: ssh.yaml
+- name: disable selinux
+  include: selinux.yaml
+- name: update limits
+  include: limits.yaml
+- name: update sysctl
+  include: sysctl.yaml
+- name: add ld.so.conf
+  include: ldconf.yaml
+- name: update hostname
+  include: hostname.yaml
+- name: load java environment
+  include: java.yaml
+- name: create proxy directory
+  include: create_proxy.yaml
+- name: install ntp rpm
+  include: install_ntp_rpm.yaml
+- name: install base rpm
+  include: base_rpm.yaml
+#- name: config ntp
+#  include: ntp.yaml

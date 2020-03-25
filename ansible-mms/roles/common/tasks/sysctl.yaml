@@ -1,0 +1,64 @@
+---
+# - name: update sysctl
+#   blockinfile:
+#     path: /etc/sysctl.conf
+#     create: yes
+#     block: |
+#       {{ item }}
+#     marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item }}"
+#   with_items:
+#     - "net.ipv4.tcp_max_tw_buckets = 18000"
+#     - "net.ipv4.tcp_fin_timeout = 5"
+#     - "net.ipv4.tcp_retries2 = 6"
+#     - "net.ipv4.conf.default.arp_filter=1"
+#     - "net.ipv4.tcp_keepalive_intvl = 4"
+#     - "net.ipv4.tcp_keepalive_probes = 3"
+#     - "net.ipv4.tcp_keepalive_time = 10"
+#     - "net.ipv4.tcp_syncookies = 0"
+#     - "net.ipv4.tcp_tw_reuse = 1"
+#     - "net.ipv4.tcp_tw_recycle = 1"
+#     - "net.ipv4.ip_local_port_range = 20000 50000"
+#     - "net.ipv4.tcp_max_syn_backlog=65536"
+#     - "net.core.netdev_max_backlog =  32768"
+#     - "net.core.somaxconn = 32768"
+#     - "net.core.wmem_default = 8388608"
+#     - "net.core.rmem_default = 8388608"
+#     - "net.core.rmem_max = 16777216"
+#     - "net.core.wmem_max = 16777216"
+#     - "net.ipv4.tcp_timestamps = 0"
+#     - "net.ipv4.tcp_synack_retries = 2" 
+#     - "net.ipv4.tcp_syn_retries = 2"
+#     - "net.ipv4.tcp_mem = 94500000 915000000 927000000"
+#     - "net.ipv4.tcp_max_orphans = 3276800"
+#     - "net.ipv4.neigh.default.gc_stale_time = 120"
+#     - "net.ipv4.neigh.default.gc_thresh1 = 512"
+#     - "net.ipv4.neigh.default.gc_thresh2 = 2048"
+#     - "net.ipv4.neigh.default.gc_thresh3 = 4096"
+#     - "net.ipv4.conf.default.send_redirects= 0"
+#     - "net.ipv4.conf.all.send_redirects= 0"
+#     - "net.ipv6.conf.default.accept_redirects= 0"
+#     - "net.ipv6.conf.all.accept_redirects= 0"
+#     - "net.bridge.bridge-nf-call-ip6tables = 0"
+#     - "net.bridge.bridge-nf-call-iptables = 0"
+#     - "net.bridge.bridge-nf-call-arptables = 0"
+#     - "fs.file-max = 6553600"
+#   become: true
+#   become_user: root
+#   become_method: sudo
+- name: update sysctl
+  copy:
+    src: sysctl.conf
+    dest: /etc/sysctl.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: effect sysctl
+  shell: sysctl -p
+  become: true
+  become_user: root
+  become_method: sudo

@@ -1,0 +1,8 @@
+---
+- hosts: mms
+  become: true
+  roles:
+    - role: common
+      vars:
+        common_action: roles/common/tasks/instantiate
+#        common_action: roles/common/tasks/base_rpm

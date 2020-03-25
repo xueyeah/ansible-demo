@@ -1,0 +1,38 @@
+---
+- name: config ntp
+  template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: add key to /etc/ntp/keys
+  blockinfile:
+    path: /etc/ntp/keys
+    create: yes
+    block: |
+      1 M 4578
+    marker: "# {mark} ANSIBLE MANAGED BLOCK key1"
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: stop chronyd
+  service:
+    name: chronyd
+    state: stopped
+    enabled: no
+  become: true
+  become_user: root
+  become_method: sudo
+  ignore_errors: yes
+  
+- name: enable ntp
+  service:
+    name: ntpd
+    state: restarted
+    enabled: yes
+  become: true
+  become_user: root
+  become_method: sudo

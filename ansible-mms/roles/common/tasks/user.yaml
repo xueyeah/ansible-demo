@@ -1,0 +1,23 @@
+---
+- name: creat nxgroup group
+  group: name=nxgroup gid=501
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: create nxuser user
+  user: name=nxuser group=nxgroup uid=501 password={{ user_password | password_hash('sha512') }}
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: add sudoers privilge
+  lineinfile: dest=/etc/sudoers state=present line='{{item}}' validate='visudo -cf %s'
+  with_items:
+    - "nxuser ALL=(ALL) NOPASSWD:ALL"
+    - "#Defaults requiretty"
+    - "#Defaults always_set_home"
+    - "Defaults !env_reset"
+  become: true
+  become_user: root
+  become_method: sudo

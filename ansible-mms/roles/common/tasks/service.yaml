@@ -1,0 +1,39 @@
+- name: stop iptables
+  service:
+    name: iptables
+    state: stopped
+    enabled: no
+  become: true
+  become_user: root
+  become_method: sudo
+  ignore_errors: yes
+
+- name: stop ip6tables
+  service:
+    name: ip6tables
+    state: stopped
+    enabled: no
+  become: true
+  become_user: root
+  become_method: sudo
+  ignore_errors: yes
+
+- name: stop postfix
+  service:
+    name: postfix
+    state: stopped
+    enabled: no
+  become: true
+  become_user: root
+  become_method: sudo
+  ignore_errors: yes
+
+#- name: stop nfslock
+#  service:
+#    name: nfslock
+#    state: stopped
+#    enabled: no
+#  become: true
+#  become_user: root
+#  become_method: sudo
+#  ignore_errors: yes

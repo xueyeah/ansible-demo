@@ -1,0 +1,6 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+192.168.208.101 ct-mms-1
+192.168.208.102 ct-mms-2
+192.168.208.103 ct-mms-3

@@ -1,0 +1,38 @@
+- set_fact: nproc_file="/etc/security/limits.d/90-nproc.conf"
+  when: "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'"
+
+- set_fact: nproc_file="/etc/security/limits.d/20-nproc.conf"
+  when: "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'"
+
+- name: setup nofile limits
+  pam_limits:
+    domain: '*'
+    limit_type: '-'
+    limit_item: nofile
+    value: 65535
+    dest: '{{ nproc_file }}'
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: setup nproc limits
+  pam_limits:
+    domain: '*'
+    limit_type: '-'
+    limit_item: nproc
+    value: 32767
+    dest: '{{ nproc_file }}'
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: setup core limits
+  pam_limits:
+    domain: '*'
+    limit_type: '-'
+    limit_item: core
+    value: 0
+    dest: '{{ nproc_file }}'
+  become: true
+  become_user: root
+  become_method: sudo

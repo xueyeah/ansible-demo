@@ -1,0 +1,6 @@
+---
+- selinux:
+    state: disabled
+  become: true
+  become_user: root
+  become_method: sudo

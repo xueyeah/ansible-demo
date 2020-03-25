@@ -1,0 +1,48 @@
+---
+- name: create .ssh directory
+  file:
+    path: /home/nxuser/.ssh/
+    state: directory
+    owner: nxuser
+    group: nxgroup
+    mode: 0700
+    recurse: yes
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: update keypairs private key
+  copy:
+    src: "{{ playbook_dir }}/file/auth/nxuser_id_dsa.pem"
+    dest: /home/nxuser/.ssh/id_dsa
+    owner: nxuser
+    group: nxgroup
+    mode: 0600
+    backup: yes
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: update keypairs public key
+  copy:
+    src: "{{ playbook_dir }}/file/auth/nxuser_id_dsa.pub"
+    dest: /home/nxuser/.ssh/id_dsa.pub
+    owner: nxuser
+    group: nxgroup
+    mode: 0644
+    backup: yes
+  become: true
+  become_user: root
+  become_method: sudo
+  
+- name: update keypairs authorized_keys
+  copy:
+    src: "{{ playbook_dir }}/file/auth/nxuser_id_dsa.pub"
+    dest: /home/nxuser/.ssh/authorized_keys
+    owner: nxuser
+    group: nxgroup
+    mode: 0600
+    backup: yes
+  become: true
+  become_user: root
+  become_method: sudo

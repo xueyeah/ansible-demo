@@ -1,0 +1,19 @@
+---
+- name: add ld.so.conf
+  blockinfile:
+    path: /etc/ld.so.conf
+    create: yes
+    block: |
+      {{ item }}
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item }}"
+  with_items:
+    - "/opt/proxy/lib"
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: effect ld.so.conf
+  shell: ldconfig -v
+  become: true
+  become_user: root
+  become_method: sudo

@@ -1,0 +1,8 @@
+---
+- name: Create proxy directory if it does not exist
+  file:
+    path: /opt/proxy
+    state: directory
+    mode: '0755'
+    owner: nxuser
+    group: nxgroup

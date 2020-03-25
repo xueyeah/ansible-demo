@@ -1,0 +1,45 @@
+---
+- name: update ssh_config
+  copy:
+    src: ssh_config
+    dest: /etc/ssh/ssh_config
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: update sshd_config
+  copy:
+    src: sshd_config
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: update ssh_banner
+  copy:
+    src: ssh_banner
+    dest: /etc/ssh_banner
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: restart sshd
+  service:
+    name: sshd
+    state: restarted
+    enabled: yes
+  become: true
+  become_user: root
+  become_method: sudo

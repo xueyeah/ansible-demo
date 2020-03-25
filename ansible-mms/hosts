@@ -1,0 +1,4 @@
+[mms]
+ct-mms-1  ansible_host=192.168.208.101 ansible_port=22 ansible_user=root ansible_ssh_pass=nextenso
+ct-mms-2  ansible_host=192.168.208.102 ansible_port=22 ansible_user=root ansible_ssh_pass=nextenso
+ct-mms-3  ansible_host=192.168.208.103 ansible_port=22 ansible_user=root ansible_ssh_pass=nextenso

@@ -1,0 +1,27 @@
+---
+- name: copy all files from folder to remote host
+  copy:
+    src: "{{ playbook_dir }}/file/baserpm/"
+    dest: /root/rpm/
+#
+#- name: installing the base rpm files
+#  shell: 'rpm -ivh  /root/rpm/*.rpm'
+#  become: true
+#  become_user: root
+#  become_method: sudo
+#  ignore_errors: yes
+
+- name: Find all base rpm files
+  find:
+    paths: "/root/rpm/"
+    pattern: "*.rpm"
+  register: rpm_files
+
+- set_fact:
+    rpm_list: "{{ rpm_files | json_query('files[*].path') | list}}"
+
+- name: installing the base rpm files
+  yum:
+    name: "{{rpm_list}}"
+    state: present
+  ignore_errors: yes

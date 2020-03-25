@@ -1,0 +1,3 @@
+---
+- name: common route
+  include: "{{ common_action }}.yaml"
