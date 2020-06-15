@@ -1,4 +1,4 @@
 [mms]
-ct-mms-1  ansible_host=192.168.208.101 ansible_port=22 ansible_user=root ansible_ssh_pass=123456
-ct-mms-2  ansible_host=192.168.208.102 ansible_port=22 ansible_user=root ansible_ssh_pass=123456
-ct-mms-3  ansible_host=192.168.208.103 ansible_port=22 ansible_user=root ansible_ssh_pass=123456
+test-1  ansible_host=192.168.208.101 ansible_port=22 ansible_user=root ansible_ssh_pass=123456
+test-2  ansible_host=192.168.208.102 ansible_port=22 ansible_user=root ansible_ssh_pass=123456
+test-3  ansible_host=192.168.208.103 ansible_port=22 ansible_user=root ansible_ssh_pass=123456
